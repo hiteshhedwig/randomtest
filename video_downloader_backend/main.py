@@ -40,11 +40,12 @@ class VideoURL(BaseModel):
 def identify_platform(url):
     patterns = {
         'youtube': r'(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/',
-        'twitter': r'(?:https?:\/\/)?(?:www\.)?twitter\.com\/',
+        'twitter': r'(?:https?:\/\/)?(?:www\.)?(?:twitter\.com|x\.com)\/',
         'vimeo': r'(?:https?:\/\/)?(?:www\.)?vimeo\.com\/',
         '9gag': r'(?:https?:\/\/)?(?:www\.)?9gag\.com\/',
         'instagram': r'(?:https?:\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/',
-        'facebook': r'(?:https?:\/\/)?(?:www\.)?(?:facebook\.com|fb\.watch)\/'
+        'facebook': r'(?:https?:\/\/)?(?:www\.)?(?:facebook\.com|fb\.watch)\/',
+        'twitch': r'(?:https?:\/\/)?(?:www\.)?twitch\.tv\/'
     }
     
     for platform, pattern in patterns.items():
@@ -52,6 +53,70 @@ def identify_platform(url):
             return platform
     return 'unknown'
 
+def process_twitch(url):
+    ydl_opts = {
+        'format': 'best',
+        'quiet': True,
+        'no_warnings': True,
+        'extract_flat': True,
+        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    thumbnail_url = info.get('thumbnail') or info.get('thumbnails', [{}])[0].get('url')
+
+    formats = [
+        {
+            "format_id": format['format_id'],
+            "ext": format.get('ext', 'unknown'),
+            "resolution": f"{format.get('width', 'N/A')}x{format.get('height', 'N/A')}",
+            "filesize": format.get('filesize', 'N/A'),
+            "url": format.get('url')
+        }
+        for format in info.get('formats', []) if format.get('vcodec') != 'none'
+    ]
+
+    return {
+        "title": info.get('title', 'Twitch Video'),
+        "duration": info.get('duration', 0),
+        "thumbnail_url": thumbnail_url,
+        "formats": formats
+    }
+
+
+def process_twitter(url):
+    ydl_opts = {
+        'format': 'best',
+        'quiet': True,
+        'no_warnings': True,
+        'extract_flat': True,
+        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    thumbnail_url = info.get('thumbnail') or info.get('thumbnails', [{}])[0].get('url')
+
+    formats = [
+        {
+            "format_id": format['format_id'],
+            "ext": format.get('ext', 'unknown'),
+            "resolution": f"{format.get('width', 'N/A')}x{format.get('height', 'N/A')}",
+            "filesize": format.get('filesize', 'N/A'),
+            "url": format.get('url')
+        }
+        for format in info.get('formats', []) if format.get('vcodec') != 'none'
+    ]
+
+    return {
+        "title": info.get('title', 'Twitter Video'),
+        "duration": info.get('duration', 0),
+        "thumbnail_url": thumbnail_url,
+        "formats": formats
+    }
 
 def process_9gag(url):
     options = Options()
@@ -203,6 +268,10 @@ async def process_video(video: VideoURL):
             return process_instagram(video.url)
         elif platform == 'facebook':
             return process_facebook(video.url)
+        elif platform == 'twitter':
+            return process_twitter(video.url)
+        elif platform == 'twitch':
+            return process_twitch(video.url)
         
         ydl_opts = {
             'format': 'bestvideo+bestaudio/best',
