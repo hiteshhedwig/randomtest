@@ -35,7 +35,7 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
     setVideoInfo(null);
 
     try {
-      const response = await axios.post('http://localhost:8000/process-video', { url: videoUrl });
+      const response = await axios.post('https://hammerhead-app-29yl4.ondigitalocean.app:8000/process-video', { url: videoUrl });
       setVideoInfo(response.data);
     } catch (err) {
       setError('Failed to process video. Please check the URL and try again.');
@@ -69,7 +69,7 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
       console.log('Starting download...');
   
       const response = await fetch(
-        `http://localhost:8000/download?url=${encodeURIComponent(videoUrl)}&format_id=${selectedFormat}`
+        `https://hammerhead-app-29yl4.ondigitalocean.app:8000/download?url=${encodeURIComponent(videoUrl)}&format_id=${selectedFormat}`
       );
   
       if (!response.ok) {
