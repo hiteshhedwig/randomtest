@@ -8,6 +8,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Progress from './Progress';
 
+const supportedPlatforms = [
+  { name: 'YouTube', logo: '/logos/youtube.svg' },
+  { name: 'Twitter', logo: '/logos/twitter.svg' },
+  { name: 'Vimeo', logo: '/logos/vimeo.svg' },
+  { name: '9GAG', logo: '/logos/9gag.svg' },
+  { name: 'Instagram', logo: '/logos/instagram.svg' },
+  { name: 'Facebook', logo: '/logos/facebook.svg' },
+  { name: 'Twitch', logo: '/logos/twitch.svg' },
+];
 
 const AppleInspiredVideoDownloaderWithFAQ = () => {
   const [videoUrl, setVideoUrl] = useState('');
@@ -126,19 +135,19 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
   const faqs = [
     {
       question: "What does this page do?",
-      answer: "This tool allows you to download any video directly to your device with just a single click. Twitter Vid is a free Twitter video downloader with ultra fast download speed. Download Twitter videos as an MP4 in HD, ensuring high quality playback."
+      answer: "This tool allows you to download any video directly to your device with just a single click. Download Vid is a free Download video downloader with ultra fast download speed. Download Video videos as an MP4 in HD, ensuring high quality playback."
     },
     {
       question: "How do I use this tool?",
-      answer: "To use this tool, simply enter the link/URL of the Tweet you wish to download into the input field and click the 'Load Videos' button. Then, select whichever quality you want and click the 'Download' button. The video will then be downloaded to your device in MP4 format. This is essentially a Twitter to MP4 tool, since it allows you to convert any tweet to MP4. This tool is an all-in-one Twitter video saver."
+      answer: "To use this tool, simply enter the link/URL of the Tweet you wish to download into the input field and click the 'Load Videos' button. Then, select whichever quality you want and click the 'Download' button. The video will then be downloaded to your device in MP4 format. This is essentially a Video to MP4 tool, since it allows you to convert any tweet to MP4. This tool is an all-in-one Video video saver."
     },
     {
       question: "How long does it take to download a video?",
-      answer: "The download speed will depend on your internet connection and the size of the video. However, our optimal and efficient Twitter video downloader should keep the download process relatively quick."
+      answer: "The download speed will depend on your internet connection and the size of the video. However, our optimal and efficient Video video downloader should keep the download process relatively quick."
     },
     {
-      question: "Can I download a Twitter GIF with this tool?",
-      answer: "Yes! Twitter Vid is also a Twitter GIF downloader, meaning you can download any Twitter GIF. Simply enter your Tweet link, click on the 'Load Videos' button. Then select the quality you want to down the GIF in and click 'Download'. Always remember, you can save any Twitter video as a GIF or MP4 using this tool."
+      question: "Can I download a Video GIF with this tool?",
+      answer: "Yes! Video Vid is also a Video GIF downloader, meaning you can download any Video GIF. Simply enter your Tweet link, click on the 'Load Videos' button. Then select the quality you want to down the GIF in and click 'Download'. Always remember, you can save any Twitter video as a GIF or MP4 using this tool."
     },
     // Add more FAQs here...
   ];
@@ -147,7 +156,7 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white text-gray-900 font-sans">
       <header className="bg-white bg-opacity-90 backdrop-blur-md fixed top-0 left-0 right-0 z-10">
         <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-gray-900">VideoEase</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">VidInstantly</h1>
           <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900 transition-colors">
             <HelpCircle className="h-5 w-5 mr-1" />
             Help
@@ -162,6 +171,18 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
         <p className="text-xl text-center text-gray-600 mb-12">
           Download your favorite videos with just a click.
         </p>
+
+        <div className="mb-12">
+          <h3 className="text-2xl font-semibold text-center mb-6">Supported Platforms and many more..</h3>
+          <div className="flex flex-wrap justify-center gap-6">
+            {supportedPlatforms.map((platform) => (
+              <div key={platform.name} className="flex flex-col items-center">
+                <img src={platform.logo} alt={`${platform.name} logo`} className="w-12 h-12 mb-2" />
+                <span className="text-sm text-gray-600">{platform.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <Card className="bg-white shadow-lg border-none rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
           <CardContent className="p-8">
@@ -240,7 +261,7 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-12">
           {[
             { title: "Fast & Reliable", description: "Lightning-fast downloads with our optimized system." },
-            { title: "Wide Compatibility", description: "Supports Twitter videos and GIFs." },
+            { title: "Wide Compatibility", description: "Supports social media videos and GIFs." },
             { title: "High Quality", description: "Download videos in the best available quality." }
           ].map((feature, index) => (
             <div key={index} className="text-center">
@@ -269,7 +290,7 @@ const AppleInspiredVideoDownloaderWithFAQ = () => {
 
       <footer className="bg-gray-100 py-8">
         <div className="max-w-5xl mx-auto px-6 text-sm text-gray-600 text-center">
-          © 2024 VideoEase. Please use responsibly and respect copyright laws.
+          © 2024 VidInstantly. Please use responsibly and respect copyright laws.
         </div>
       </footer>
     </div>
