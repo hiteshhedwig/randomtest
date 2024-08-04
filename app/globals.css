@@ -67,3 +67,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.animate-twinkle {
+  animation: twinkle ease-in-out infinite;
+}

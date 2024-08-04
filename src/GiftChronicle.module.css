@@ -1,0 +1,22 @@
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Adjust this value to control spacing between button and GIF */
+  }
+  
+  .giftAnimation {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .buttonContainer {
+      flex-direction: column;
+    }
+  
+    .giftAnimation {
+      margin-top: 10px;
+    }
+  }
