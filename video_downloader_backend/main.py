@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://whale-app-o4uqw.ondigitalocean.app:3000"],  # Replace with your frontend URL
+    allow_origins=["https://dolphin-app-o4enl.ondigitalocean.app"],  # Replace with your frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
