@@ -37,6 +37,14 @@ class VideoURL(BaseModel):
     url: str
 
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
+
 def identify_platform(url):
     patterns = {
         'youtube': r'(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/',
